@@ -9,7 +9,7 @@ body{
 }
 
 .add-task{
-    /* border: 10px #b33939 solid; */
+    border: 10px #b33939 solid;
     height:5rem;
     width: 5rem;
     margin-left: calc(50% - 5rem/2);
