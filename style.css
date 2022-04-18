@@ -1,0 +1,95 @@
+*{
+    box-sizing: border-box;
+    user-select: none;
+}
+body{
+    padding:0;
+    margin: 0;
+    background-color: #b2bec3;
+}
+
+.add-task{
+    border: 10px #b33939 solid;
+    height:5rem;
+    width: 5rem;
+    margin-left: calc(50% - 5rem/2);
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #2d3436;
+    color: white;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+.add-task span{
+    font-size: 4rem;
+    user-select: none;
+    font-weight:bolder;
+}
+.add-task:hover{
+    background-color:#b33939;
+}
+
+.taskBody{
+    height:12rem;
+    width:11rem;
+    /* border: 2px solid black; */
+    background-color: #2d3436;
+    margin: 0.4rem;
+    padding-left: 1rem;
+    border-radius:1rem ;
+    color: white;
+    /* display: flex; */
+    /* flex-direction: column; */
+    overflow: none;
+    animation: scale-tools;
+    animation-duration:0.5s;
+}
+@keyframes scale-tools{
+    0%{
+        transform: scale(0.1);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+.CompletedTaskContainer .taskBody{
+    background-color: #b33939;
+}
+
+
+.taskStatus{
+    font-size: 1.2rem;
+}
+.date{
+ /* border: 2px solid red; */
+ width:80%;
+}
+.delete:hover{
+ /* border: 2px solid red; */
+ background-color: red;
+}
+.dateDel{
+    display: flex;
+    margin-top: 0.5rem;
+}
+
+.cont{
+    display: flex;
+}
+.CompletedTaskContainer{
+    /* border: 2px red solid; */
+    padding: 2rem;
+    display:flex;
+    flex-wrap: wrap;
+    width: 37%;
+    height: 100%;
+}
+.taskContainer{
+    display: flex;
+    flex-wrap: wrap;
+    width:63%;
+    padding:2% 0;
+    height:100%;
+}
