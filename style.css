@@ -20,14 +20,13 @@ body{
     color: white;
     margin-top: 5vh;
     margin-bottom: 5vh;
-}
-.add-task span{
-    font-size: 4rem;
-    user-select: none;
-    font-weight:bolder;
+    font-size: 3.5rem;
+    text-align: center;
 }
 .add-task:hover{
     background-color:#b33939;
+    border: 10px #2d3436 solid;
+
 }
 
 .taskBody{
@@ -92,4 +91,5 @@ body{
     width:63%;
     padding:2% 0;
     height:100%;
+    margin-left: 30px;
 }

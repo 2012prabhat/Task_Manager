@@ -5,12 +5,13 @@ $(".add-task").click(handleAddTask);
 let resources = [];
 
 function handleAddTask(){
-    let date = prompt("Enter the date");
+    let input = prompt("Enter the topic and task")
+    let date = input.substring(0, input.indexOf(' '));
     if(date==null || date=="") {
-        alert("Please Enter the Date");
+        alert("Please Enter the Topic and Task both seperated by a space");
         return;
     }
-    let taskName = prompt("Enter the task");
+    let taskName = input.substring(input.indexOf(' ') + 1);
     if(taskName==null || taskName=="") {
         alert("Please Enter the task");
         return;
