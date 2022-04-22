@@ -196,6 +196,7 @@ function handleCheck() {
         taskStatus.innerText = "Completed";
         this.setAttribute("isChecked","true");
         task.style.backgroundColor = "#b33939"
+        cont.append(task);
         let resource = resources.find(f=>f.dateId == taskId);
         resource.completed = true;
         saveToStorage();
