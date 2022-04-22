@@ -6,6 +6,8 @@ body{
     padding:0;
     margin: 0;
     background-color: #b2bec3;
+    background-image: url("/back.jpg");
+    background-size: 100%;
 }
 
 .add-task{
@@ -27,6 +29,25 @@ body{
     background-color:#b33939;
     border: 10px #2d3436 solid;
 
+}
+.add-date{
+    border: 10px green solid;
+    height:5rem;
+    width: 5rem;
+    margin-left: calc(50% - 5rem/2);
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #2d3436;
+    color: white;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    font-size: 3.5rem;
+    text-align: center;
+}
+.add-date:hover{
+    background-color:green;
+    border: 10px #2d3436 solid;
 }
 
 .taskBody{
@@ -53,15 +74,10 @@ body{
     }
 }
 
-.CompletedTaskContainer .taskBody{
-    background-color: #b33939;
-}
-
-
 .taskStatus{
     font-size: 1.2rem;
 }
-.date{
+.topic{
  /* border: 2px solid red; */
  width:80%;
 }
@@ -69,27 +85,60 @@ body{
  /* border: 2px solid red; */
  background-color: red;
 }
-.dateDel{
+.topicDel{
     display: flex;
     margin-top: 0.5rem;
 }
 
 .cont{
-    display: flex;
-}
-.CompletedTaskContainer{
-    /* border: 2px red solid; */
-    padding: 2rem;
-    display:flex;
+    display: flex;gi
     flex-wrap: wrap;
-    width: 37%;
-    height: 100%;
+    margin: 2rem;
 }
-.taskContainer{
-    display: flex;
-    flex-wrap: wrap;
-    width:63%;
-    padding:2% 0;
-    height:100%;
-    margin-left: 30px;
+
+.dateFolder{
+    height:10rem;
+    width:10rem;
+    background-color: teal;
+    margin: 1rem;
+    padding:32px 16px;
+    border-radius: 50%;
+    text-align: center;
+    color:black;
+    animation: scale-tools;
+    animation-duration: 0.5s;
+    background-image: url("/date.png");
+    background-size: 100%;
+}
+
+.back-button{
+    width: 4rem;
+    border: white 5px solid;
+    border-radius: 50%;
+    position: absolute;
+    left:2%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    animation: scale-tools;
+    animation-duration: 0.5s;
+}
+.back-button span{
+    font-size: 3rem;
+}
+
+.delete-button{
+    width: 3.8rem;
+    border: white 5px solid;
+    border-radius: 50%;
+    position: absolute;
+    left:2%;
+    background-color: black;
+    color: white;
+    animation: scale-tools;
+    animation-duration: 0.5s;
+    text-align: center;
+}
+.delete-button span{
+    font-size: 3rem;
 }

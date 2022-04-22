@@ -10,16 +10,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button class="material-icons add-task">add</button> 
+    <div class="back-button">
+        <span class="material-icons">
+            arrow_back
+            </span>
+    </div>
+    <div class="delete-button">
+        <span class="material-icons">
+            close
+            </span>
+    </div>
+    <button class="material-icons add-task ">add</button> 
+    <button class="material-icons add-date">add</button>
     <div class="cont">
-        <div class="taskContainer"></div>
-        <div class="CompletedTaskContainer"></div>
     </div>
     
-    <template class="taskTemp">
-        <div class="taskBody" taskid="" completed="">
-            <div class = "dateDel">
-                <div class="date"></div>
+    <template class="myTemp">
+        <div class="taskBody" taskid="" pid="" completed="">
+            <div class = "topicDel">
+                <div class="topic"></div>
                 <span class="material-icons delete">close</span>
             </div>
             
@@ -30,8 +39,10 @@
            
             
         </div>
+        <div class="dateFolder" dateId="" pid="">
+                <h3 class="enteredDate"></h3>
+        </div>
     </template>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

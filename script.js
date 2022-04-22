@@ -1,13 +1,137 @@
-let taskTemp = document.querySelector(".taskTemp");
-let completeTaskCont = document.querySelector(".CompletedTaskContainer");
-let taskContainer = document.querySelector(".taskContainer");
-$(".add-task").click(handleAddTask);
+let addTaskBtn = document.querySelector(".add-task");
+let addDateBtn = document.querySelector(".add-date");
+let cont = document.querySelector(".cont");
+let temp = document.querySelector(".myTemp");
+let backBtn = document.querySelector(".back-button");
+let deleteBtn = document.querySelector(".delete-button");
+let deleteFlag = false;
+
+backBtn.addEventListener("click",handleBack);
+deleteBtn.addEventListener("click",handleDeleteBtn);
+addDateBtn.addEventListener("click",handleAddDate);
+addTaskBtn.addEventListener("click",handleAddTask);
 let resources = [];
+let cfid = -1;
+let dateId = 0;
+if(cfid==-1){
+    addTaskBtn.style.display = "none";
+    backBtn.style.display = "none";
+} 
+function handleAddDate(){
+    let date = prompt("Enter the date");
+    if(!date) return;
+    dateId++;
+    let pid = cfid;
+    resources.push({
+        date:date,
+        dateId:dateId,
+        pid:pid,
+        type:"date"
+    })
+    addDateIntoHtml(date,dateId,pid);
+    saveToStorage();
+}
+function addDateIntoHtml(date,dateId,pid){
+    let dateTemp = temp.content.querySelector(".dateFolder");
+    let dateFolder = document.importNode(dateTemp,true);
+    let dateText = dateFolder.querySelector(".enteredDate");
+    dateText.innerText = date;
+    dateFolder.setAttribute("dateId",dateId); 
+    dateFolder.setAttribute("pid",pid); 
+    cont.prepend(dateFolder);
+    dateFolder.addEventListener("dblclick",handleView);
+    dateFolder.addEventListener("click",handleDateDelete);
+
+}
+function handleDateDelete() {
+    if(deleteFlag){
+        this.remove();
+        let tid = Number(this.getAttribute("dateId"));
+       let taskIdIdx = resources.findIndex(f=>f.dateId == tid);
+       resources.splice(taskIdIdx,1);
+       saveToStorage();
+    }
+}
+
+function saveToStorage(){
+    localStorage.setItem("TaskManager",JSON.stringify(resources));
+}
+
+function loadFromStorage(){
+    let data = localStorage.getItem("TaskManager");
+    if(!data) return;
+    resources = JSON.parse(data);
+
+    for(let i = 0; i < resources.length; i++){
+        if(resources[i].pid == cfid){
+            if(resources[i].type == "date"){
+
+                addDateIntoHtml(resources[i].date, resources[i].dateId, resources[i].pid);
+            }else if(resources[i].type == "task"){
+                addTaskIntoHTML(resources[i].topic,resources[i].taskName,resources[i].dateId,resources[i].completed);
+            }
+        }
+        if(resources[i].dateId > dateId){
+            dateId = resources[i].dateId;
+        }
+    }
+}
+loadFromStorage();
+
+
+function handleView(){
+    addDateBtn.style.display = "none";
+    deleteBtn.style.display = "none";
+    addTaskBtn.style.display = "flex";
+    backBtn.style.display = "flex";
+
+    let dateFolder = this;
+    let dateId = parseInt(dateFolder.getAttribute("dateId"));
+    cfid = dateId;
+    cont.innerHTML = "";
+    for(let i = 0; i < resources.length; i++){
+        if(resources[i].pid == cfid){
+            if(resources[i].type == "date"){
+
+                addDateIntoHtml(resources[i].date, resources[i].dateId, resources[i].pid);
+            }else if(resources[i].type == "task"){
+                addTaskIntoHTML(resources[i].topic,resources[i].taskName,resources[i].dateId,resources[i].completed,resources[i].pid);
+            }
+        }
+        if(resources[i].dateId > dateId){
+            dateId = resources[i].dateId;
+        }
+    }
+}
+
+function handleBack(){
+    addDateBtn.style.display = "flex";
+    deleteBtn.style.display = "flex";
+    addTaskBtn.style.display = "none";
+    backBtn.style.display = "none";
+    cfid = -1;
+    cont.innerHTML = "";
+    for(let i = 0; i < resources.length; i++){
+        if(resources[i].pid == cfid){
+            if(resources[i].type == "date"){
+
+                addDateIntoHtml(resources[i].date, resources[i].dateId, resources[i].pid);
+            }else if(resources[i].type == "task"){
+                addTaskIntoHTML(resources[i].topic,resources[i].taskName,resources[i].dateId,resources[i].completed,resources[i].pid);
+            }
+        }
+        if(resources[i].dateId > dateId){
+            dateId = resources[i].dateId;
+        }
+    }
+}
+
+
 
 function handleAddTask(){
     let input = prompt("Enter the topic and task")
-    let date = input.substring(0, input.indexOf(' '));
-    if(date==null || date=="") {
+    let topic = input.substring(0, input.indexOf(' '));
+    if(topic==null || topic=="") {
         alert("Please Enter the Topic and Task both seperated by a space");
         return;
     }
@@ -16,57 +140,52 @@ function handleAddTask(){
         alert("Please Enter the task");
         return;
     }
-    let taskid;
-    if(resources.length==0) taskid = 0;
-    else taskid = resources[resources.length-1].taskid;
-    taskid++;
     let completed = false;
-    addTaskIntoHTML(date,taskName,taskid,completed);
+    let pid = cfid;
+    dateId++;
     resources.push({
-        taskid: taskid,
+        dateId: dateId,
         taskName: taskName,
-        date: date,
-        completed:completed
+        topic: topic,
+        completed:completed,
+        pid:pid,
+        type:"task",
     });
     saveToStorage();
+    addTaskIntoHTML(topic,taskName,dateId,completed);
 }
 
-function addTaskIntoHTML(date,taskName,taskid,completed){
-    let taskTemplate = taskTemp.content.querySelector(".taskBody");
+function addTaskIntoHTML(topic,taskName,dateId,completed,pid){
+    let taskTemplate = temp.content.querySelector(".taskBody");
     let task = document.importNode(taskTemplate,true);
     let taskDesc = task.querySelector(".taskDesc");
-    let taskDate = task.querySelector(".date");
+    let taskTopic = task.querySelector(".topic");
     let taskStatus = task.querySelector(".taskStatus");
     let taskCheck = task.querySelector(".check");
     let deleteBtn = task.querySelector(".delete");
     taskDesc.innerHTML = taskName;
-    taskDate.innerHTML = date;
-    task.setAttribute("taskid",taskid);
+    taskTopic.innerHTML = topic;
+    task.setAttribute("taskid",dateId);
+    task.setAttribute("pid",pid);
     if(completed==true){
      taskStatus.innerHTML = "Completed";
      setTimeout(() => {  
          taskCheck.click();
-     }, 1000);
-     completeTaskCont.append(task);
+     }, 10);
     }
-        
-    else if(completed==false) taskContainer.append(task);
+    cont.append(task);
     
     taskCheck.addEventListener("click",handleCheck);
     deleteBtn.addEventListener("click",handleDelete);
 }
-
-
-
 function handleDelete(){
     let tid = Number(this.parentNode.parentNode.getAttribute("taskid"));
     this.parentNode.parentNode.remove();
-    let taskIdIdx = resources.findIndex(f=>f.taskid == tid);
+    let taskIdIdx = resources.findIndex(f=>f.dateId == tid);
     resources.splice(taskIdIdx,1);
     saveToStorage();
 
 }
-
 function handleCheck() {
     let task = this.parentNode;
     let taskId = Number(task.getAttribute("taskid"));
@@ -76,35 +195,30 @@ function handleCheck() {
         task.setAttribute("completed","true");
         taskStatus.innerText = "Completed";
         this.setAttribute("isChecked","true");
-        completeTaskCont.append(task);
         task.style.backgroundColor = "#b33939"
-        let resource = resources.find(f=>f.taskid == taskId);
+        let resource = resources.find(f=>f.dateId == taskId);
         resource.completed = true;
         saveToStorage();
     }else{
         taskStatus.innerText = "Not Completed";
         this.setAttribute("isChecked","false");
-        taskContainer.append(task);
         task.setAttribute("completed","false");
         task.style.backgroundColor = "#2d3436";
-        let resource = resources.find(f=>f.taskid == taskId);
+        let resource = resources.find(f=>f.dateId == taskId);
         resource.completed = false;
         saveToStorage();
     }
     
 }
 
-function saveToStorage() {
-    localStorage.setItem("taskManager",JSON.stringify(resources));
-}
-function loadFromLocalStorage(){
-    let data = localStorage.getItem("taskManager");
-    if(!data) return;
-    resources = JSON.parse(data);
-    for(let i=0;i<resources.length;i++){
-        addTaskIntoHTML(resources[i].date,resources[i].taskName,resources[i].taskid,resources[i].completed);
-        console.log(resources[i].taskName);
+
+function handleDeleteBtn(){
+    deleteFlag = !deleteFlag;
+    if(deleteFlag){
+        deleteBtn.style.border = "5px solid red";
+        deleteBtn.style.color = "red";
+    }else{
+        deleteBtn.style.border = "5px solid white";
+        deleteBtn.style.color = "white";
     }
 }
-
-loadFromLocalStorage();
