@@ -32,6 +32,7 @@ function handleAddDate(){
     saveToStorage();
 }
 function addDateIntoHtml(date,dateId,pid){
+    let todayDate = (new Date()).toLocaleDateString('en-GB');
     let dateTemp = temp.content.querySelector(".dateFolder");
     let dateFolder = document.importNode(dateTemp,true);
     let dateText = dateFolder.querySelector(".enteredDate");
@@ -39,6 +40,10 @@ function addDateIntoHtml(date,dateId,pid){
     dateFolder.setAttribute("dateId",dateId); 
     dateFolder.setAttribute("pid",pid); 
     cont.prepend(dateFolder);
+    let isToday = (String(todayDate) == date.substring(0, date.indexOf(' ')));
+    if(isToday){
+        dateFolder.style.border = "6px solid white";
+    }
     dateFolder.addEventListener("dblclick",handleView);
     dateFolder.addEventListener("click",handleDateDelete);
 
