@@ -136,7 +136,7 @@ function handleBack(){
 function handleAddTask(){
     let input = prompt("Enter the topic and task")
     let topic = input.substring(0, input.indexOf(' '));
-    if(topic==null || topic=="") {
+    if(topic==null) {
         alert("Please Enter the Topic and Task both seperated by a space");
         return;
     }
