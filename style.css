@@ -93,7 +93,8 @@ body{
 .cont{
     display: flex;
     flex-wrap: wrap;
-    margin: 2rem;
+    margin: 2%;
+    border: 2px solid red;
 }
 
 .dateFolder{
