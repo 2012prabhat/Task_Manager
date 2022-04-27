@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="icon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
     <div class="back-button">
@@ -22,25 +23,25 @@
     </div>
     <button class="material-icons add-task ">add</button> 
     <button class="material-icons add-date">add</button>
-    <div class="cont">
+    <div class="cont ml-20">
     </div>
     
     <template class="myTemp">
-        <div class="taskBody" taskid="" pid="" completed="">
+        <div class="taskBody h-[190px] w-[160px] md:h-[190px] md:w-[180px] hover:scale-110 ease-out duration-300  mr-4" taskid="" pid="" completed="">
             <div class = "topicDel">
                 <div class="topic"></div>
                 <span class="material-icons delete">close</span>
             </div>
             
-            <h4 class="taskDesc"></h4>
+            <h4 class="taskDesc mt-4 mb-8"></h4>
             
-                <span class="taskStatus">Not Completed</span>
+                <span class="taskStatus text-sm md:text-xl">Not Completed</span>
                <input class="check" isChecked="false" type="checkbox">
            
             
         </div>
-        <div class="dateFolder" dateId="" pid="">
-                <h3 class="enteredDate"></h3>
+        <div class="dateFolder bg-black hover:scale-110 ease-out duration-300 " dateId="" pid="">
+                <h3 class="enteredDate mt-4 text-lg text-white"></h3>
         </div>
     </template>
     <script src="script.js"></script>

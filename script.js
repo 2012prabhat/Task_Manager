@@ -200,7 +200,9 @@ function handleCheck() {
         task.setAttribute("completed","true");
         taskStatus.innerText = "Completed";
         this.setAttribute("isChecked","true");
-        task.style.backgroundColor = "#b33939"
+        // task.style.backgroundColor = "#b33939"
+        task.style.backgroundColor = "white"
+        task.style.color = "black";
         cont.append(task);
         let resource = resources.find(f=>f.dateId == taskId);
         resource.completed = true;
@@ -210,6 +212,8 @@ function handleCheck() {
         this.setAttribute("isChecked","false");
         task.setAttribute("completed","false");
         task.style.backgroundColor = "#2d3436";
+        task.style.color = "white";
+
         let resource = resources.find(f=>f.dateId == taskId);
         resource.completed = false;
         saveToStorage();

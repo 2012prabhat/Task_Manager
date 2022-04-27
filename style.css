@@ -51,8 +51,8 @@ body{
 }
 
 .taskBody{
-    height:12rem;
-    width:11rem;
+    /* height:12rem;
+    width:11rem; */
     /* border: 2px solid black; */
     background-color: #2d3436;
     margin: 0.4rem;
@@ -107,7 +107,7 @@ body{
     color:black;
     animation: scale-tools;
     animation-duration: 0.5s;
-    background-image: url("/date.png");
+    /* background-image: url("/date.png"); */
     background-size: 100%;
 }
 
